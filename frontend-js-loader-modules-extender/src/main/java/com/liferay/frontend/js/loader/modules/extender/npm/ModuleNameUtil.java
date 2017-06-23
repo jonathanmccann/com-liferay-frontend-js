@@ -145,8 +145,8 @@ public class ModuleNameUtil {
 	 * </pre>
 	 * </p>
 	 *
-	 * @param moduleName
-	 * @return
+	 * @param  moduleName the module's name
+	 * @return the path portion of a full module name
 	 */
 	public static String getPackagePath(String moduleName) {
 		int i = moduleName.indexOf(StringPool.SLASH);
@@ -165,7 +165,7 @@ public class ModuleNameUtil {
 	/**
 	 * Returns the file name implementing the module.
 	 *
-	 * @param  moduleName the module name
+	 * @param  moduleName the module's name
 	 * @return the file name
 	 */
 	public static String toFileName(String moduleName) {
