@@ -1,10 +1,6 @@
 {
 	"dependencies": {
-		"liferay-amd-loader": "2.0.0",
-		"metal": "^2.5.12",
-		"metal-component": "^2.5.13",
-		"metal-dom": "^2.5.13",
-		"metal-events": "^2.5.16",
+		"liferay-amd-loader": "2.1.0",
 		"svg4everybody": "^2.1.8"
 	},
 	"devDependencies": {
@@ -18,6 +14,7 @@
 		"metal-cli": "^4.0.1",
 		"metal-component": "^2.5.13",
 		"metal-dom": "^2.5.13",
+		"metal-events": "^2.5.16",
 		"metal-karma-config": "^2.1.1"
 	},
 	"name": "frontend-js-web",
