@@ -24,26 +24,26 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 @ExtendedObjectClassDefinition(category = "foundation")
 @Meta.OCD(
 	id = "com.liferay.frontend.js.spa.web.configuration.SPAConfiguration",
-	localization = "content/Language", name = "spa.configuration.name"
+	localization = "content/Language", name = "spa-configuration-name"
 )
 public interface SPAConfiguration {
 
 	@Meta.AD(
-		deflt = "-1", description = "cache.expiration.time.description",
-		name = "cache.expiration.time.name", required = true
+		deflt = "-1", description = "cache-expiration-time-description",
+		name = "cache-expiration-time-name", required = true
 	)
 	public String cacheExpirationTime();
 
 	@Meta.AD(
 		deflt = "${server-property://com.liferay.portal/javascript.single.page.application.timeout}",
-		description = "request.timeout.description",
-		name = "request.timeout.name", required = true
+		description = "request-timeout-description",
+		name = "request-timeout-name", required = true
 	)
 	public String requestTimeout();
 
 	@Meta.AD(
-		deflt = "30000", description = "user.notification.timeout.description",
-		name = "user.notification.timeout.name", required = true
+		deflt = "30000", description = "user-notification-timeout-description",
+		name = "user-notification-timeout-name", required = true
 	)
 	public String userNotificationTimeout();
 
