@@ -216,7 +216,8 @@ AUI.add(
 										}
 									}
 								);
-							} catch (error) {
+							}
+							catch (error) {
 							}
 						}
 					},
