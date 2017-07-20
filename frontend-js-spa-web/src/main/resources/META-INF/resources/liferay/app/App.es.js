@@ -85,6 +85,8 @@ class LiferayApp extends App {
 			this.clearScreensCache();
 		}
 
+		this._clearLayoutData();
+
 		Liferay.fire(
 			'beforeNavigate',
 			{
@@ -93,6 +95,10 @@ class LiferayApp extends App {
 				path: data.path
 			}
 		);
+	}
+
+	onDataLayoutConfigReady_(event) {
+		Liferay.Layout.init(Liferay.Data.layoutConfig)
 	}
 
 	onDocClickDelegate_(event) {
@@ -126,8 +132,8 @@ class LiferayApp extends App {
 			this._hideTimeoutAlert();
 		}
 
-		if (Liferay.Layout && Liferay.Data.layoutConfig && !event.error) {
-			Liferay.Layout.init();
+		if (!event.error) {
+			this.dataLayoutConfigReadyHandle_ = Liferay.once('dataLayoutConfigReady', this.onDataLayoutConfigReady_);
 		}
 
 		AUI().Get._insertCache = {};
@@ -163,10 +169,6 @@ class LiferayApp extends App {
 			}
 		);
 
-		if (Liferay.Data && Liferay.Data.layoutConfig) {
-			Liferay.Data.layoutConfig = nul;
-		}
-
 		this._startRequestTimer(event.path);
 	}
 
@@ -176,6 +178,17 @@ class LiferayApp extends App {
 
 	setValidStatusCodes(validStatusCodes) {
 		this.validStatusCodes = validStatusCodes;
+	}
+
+	_clearLayoutData() {
+		this.dataLayoutConfig_ = Liferay.Data.layoutConfig;
+
+		Liferay.Data.layoutConfig = null;
+
+		if (this.dataLayoutConfigReadyHandle_) {
+			this.dataLayoutConfigReadyHandle_.detach();
+			this.dataLayoutConfigReadyHandle_ = null;
+		}
 	}
 
 	_clearRequestTimer() {
