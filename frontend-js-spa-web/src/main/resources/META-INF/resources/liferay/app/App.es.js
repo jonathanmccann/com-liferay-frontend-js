@@ -21,6 +21,8 @@ class LiferayApp extends App {
 
 		var exceptionsSelector = ':not([target="_blank"]):not([data-senna-off]):not([data-resource-href])';
 
+		Liferay.SPA.navigationExceptionSelectors = exceptionsSelector;
+
 		this.setFormSelector('form' + exceptionsSelector);
 		this.setLinkSelector('a' + exceptionsSelector);
 		this.setLoadingCssClass('lfr-spa-loading');
