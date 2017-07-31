@@ -27,8 +27,8 @@ class LiferayApp extends App {
 
 		this.on('beforeNavigate', this.onBeforeNavigate);
 		this.on('endNavigate', this.onEndNavigate);
-		this.on('startNavigate', this.onStartNavigate);
 		this.on('navigationError', this.onNavigationError);
+		this.on('startNavigate', this.onStartNavigate);
 
 		Liferay.on('beforeScreenFlip', Utils.resetAllPortlets);
 		Liferay.on('io:complete', this.onLiferayIOComplete, this);
@@ -42,12 +42,6 @@ class LiferayApp extends App {
 		this.addSurfaces(new LiferaySurface(body.id));
 
 		dom.append(body, '<div class="lfr-spa-loading-bar"></div>');
-	}
-
-	onNavigationError(evt) {
-		if (evt.error.requestPrematureTermination) {
-			window.location.href = evt.path;
-		}
 	}
 
 	getCacheExpirationTime() {
@@ -130,18 +124,7 @@ class LiferayApp extends App {
 			this._hideTimeoutAlert();
 		}
 
-		if (event.error) {
-			if (event.error.invalidStatus || event.error.requestError || event.error.timeout) {
-				this._createNotification(
-					{
-						message: Liferay.Language.get('there-was-an-unexpected-error.-please-refresh-the-current-page'),
-						title: Liferay.Language.get('error'),
-						type: 'danger'
-					}
-				);
-			}
-		}
-		else if (Liferay.Layout && Liferay.Data.layoutConfig) {
+		if (Liferay.Layout && Liferay.Data.layoutConfig && !event.error) {
 			Liferay.Layout.init();
 		}
 
@@ -152,6 +135,21 @@ class LiferayApp extends App {
 
 	onLiferayIOComplete() {
 		this.clearScreensCache();
+	}
+
+	onNavigationError(event) {
+		if (event.error.requestPrematureTermination) {
+			window.location.href = event.path;
+		}
+		else if (event.error.invalidStatus || event.error.requestError || event.error.timeout) {
+			this._createNotification(
+				{
+					message: Liferay.Language.get('there-was-an-unexpected-error.-please-refresh-the-current-page'),
+					title: Liferay.Language.get('error'),
+					type: 'danger'
+				}
+			);
+		}
 	}
 
 	onStartNavigate(event) {
