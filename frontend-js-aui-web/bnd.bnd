@@ -1,5 +1,5 @@
-Bundle-Name: Liferay Frontend JS Deprecated Web
-Bundle-SymbolicName: com.liferay.frontend.js.deprecated.web
+Bundle-Name: Liferay Frontend JS AUI Web
+Bundle-SymbolicName: com.liferay.frontend.js.aui.web
 Bundle-Version: 1.0.0
 Fragment-Host: com.liferay.frontend.js.web
 Liferay-Releng-Module-Group-Description:
