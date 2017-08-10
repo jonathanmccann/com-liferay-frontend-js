@@ -18,7 +18,7 @@ import com.liferay.frontend.js.loader.modules.extender.npm.JSBundle;
 import com.liferay.frontend.js.loader.modules.extender.npm.JSBundleProcessor;
 import com.liferay.frontend.js.loader.modules.extender.npm.JSPackageDependency;
 import com.liferay.frontend.js.loader.modules.extender.npm.ModuleNameUtil;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -40,6 +40,7 @@ import java.util.regex.Pattern;
 
 import org.osgi.framework.Bundle;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Iván Zaera
@@ -206,7 +207,7 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 		JSONObject jsonObject = null;
 
 		try {
-			jsonObject = JSONFactoryUtil.createJSONObject(
+			jsonObject = _jsonFactory.createJSONObject(
 				_getResourceContent(flatJSBundle, location + "/package.json"));
 		}
 		catch (Exception e) {
@@ -261,5 +262,8 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 
 	private static final Pattern _moduleDefinitionPattern = Pattern.compile(
 		"Liferay\\.Loader\\.define.*\\[(.*)\\].*function", Pattern.MULTILINE);
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 }
