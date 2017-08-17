@@ -280,7 +280,7 @@ AUI.add(
 						return output;
 					},
 
-					_formatRequestData: function(treeNode) {
+					_formatRequestData: function(parentVocabularyId, treeNode) {
 						var instance = this;
 
 						var data = {};
@@ -295,10 +295,8 @@ AUI.add(
 							if (assetType == 'category') {
 								data.categoryId = assetId;
 
-								var vocabularyId = instance._getTreeNodeVocabularyId(treeNode);
-
-								if (vocabularyId) {
-									data.vocabularyId = vocabularyId;
+								if (parentVocabularyId) {
+									data.vocabularyId = parentVocabularyId;
 								}
 							}
 							else {
@@ -391,24 +389,6 @@ AUI.add(
 						var match = treeId.match(/^(vocabulary|category)/);
 
 						return match ? match[1] : null;
-					},
-
-					_getTreeNodeVocabularyId: function(treeNode) {
-						var instance = this;
-
-						var parentNode = treeNode.get('parentNode');
-						var ancestorNode = parentNode.get('parentNode');
-
-						while (ancestorNode.get('parentNode')) {
-							parentNode = ancestorNode;
-
-							ancestorNode = ancestorNode.get('parentNode');
-						}
-
-						var assetId = instance._getTreeNodeAssetId(parentNode);
-						var assetType = instance._getTreeNodeAssetType(parentNode);
-
-						return assetType == 'vocabulary' ? assetId : null;
 					},
 
 					_initSearch: EMPTY_FN,
@@ -746,7 +726,7 @@ AUI.add(
 								children: [vocabularyRootNode],
 								io: {
 									cfg: {
-										data: A.bind('_formatRequestData', instance),
+										data: A.bind('_formatRequestData', instance, vocabularyId),
 										on: {
 											success: function(event) {
 												var treeViews = instance.TREEVIEWS;
