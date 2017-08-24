@@ -104,9 +104,9 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 	private String _normalizeModuleContent(String moduleContent) {
 		moduleContent = moduleContent.replaceAll("\n", " ");
 
-		int i = moduleContent.indexOf("function");
+		int index = moduleContent.indexOf("function");
 
-		return moduleContent.substring(0, i);
+		return moduleContent.substring(0, index);
 	}
 
 	/**
