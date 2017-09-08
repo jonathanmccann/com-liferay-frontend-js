@@ -508,7 +508,11 @@ AUI.add(
 
 						var ratingThumbUp = elements.item(0);
 
-						var ratingThumbUpCssClassOn = ratingThumbUp.hasClass(cssClassesOn);
+						var ratingThumbUpCssClassOn = false;
+
+						if (ratingThumbUp) {
+							ratingThumbUpCssClassOn = ratingThumbUp.hasClass(cssClassesOn);
+						}
 
 						var thumbDownMessage = '';
 						var thumbUpMessage = '';
