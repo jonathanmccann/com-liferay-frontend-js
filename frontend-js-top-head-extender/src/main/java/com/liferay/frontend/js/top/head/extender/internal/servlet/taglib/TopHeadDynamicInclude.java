@@ -222,6 +222,10 @@ public class TopHeadDynamicInclude implements DynamicInclude {
 			List<String> urls)
 		throws IOException {
 
+		PrintWriter printWriter = response.getWriter();
+
+		StringBundler sb = new StringBundler();
+
 		long jsLastModified = -1;
 
 		if (_portalWebResources != null) {
@@ -230,10 +234,6 @@ public class TopHeadDynamicInclude implements DynamicInclude {
 
 		String comboURL = _portal.getStaticResourceURL(
 			request, _comboContextPath, "minifierType=js", jsLastModified);
-
-		PrintWriter printWriter = response.getWriter();
-
-		StringBundler sb = new StringBundler();
 
 		for (String url : urls) {
 			if (sb.length() == 0) {
