@@ -78,9 +78,8 @@ public class TopHeadExtension implements Extension {
 					ServletContext servletContext = bundleContext.getService(
 						serviceReference);
 
-					String contextPath = servletContext.getContextPath();
-
-					_topHeadResourcesImpl.setServletContextPath(contextPath);
+					_topHeadResourcesImpl.setServletContextPath(
+						servletContext.getContextPath());
 
 					serviceRegistrations.add(
 						bundleContext.registerService(
