@@ -55,7 +55,7 @@ public class TopHeadExtension implements Extension {
 	public void start() throws Exception {
 		final BundleContext bundleContext = _bundle.getBundleContext();
 
-		String filter =
+		String filterString =
 			"(&(objectClass=" + ServletContext.class.getName() +
 				")(osgi.web.symbolicname=" + _bundle.getSymbolicName() + "))";
 
@@ -64,7 +64,7 @@ public class TopHeadExtension implements Extension {
 		properties.put("service.ranking", _weight);
 
 		_serviceTracker = ServiceTrackerFactory.open(
-			bundleContext, filter,
+			bundleContext, filterString,
 			new ServiceTrackerCustomizer
 				<ServletContext, Collection<ServiceRegistration<?>>>() {
 
