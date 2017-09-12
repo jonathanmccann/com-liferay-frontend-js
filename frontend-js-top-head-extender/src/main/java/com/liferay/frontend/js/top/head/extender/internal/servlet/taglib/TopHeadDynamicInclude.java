@@ -171,13 +171,14 @@ public class TopHeadDynamicInclude implements DynamicInclude {
 		_jsContextPath = _jsContextPath.concat(
 			_portalWebResources.getContextPath());
 
-		_jsResourceURLs.clear();
 		_allJsResourceURLs.clear();
-
-		_addPortalBundles(_jsResourceURLs, PropsKeys.JAVASCRIPT_BAREBONE_FILES);
 
 		_addPortalBundles(
 			_allJsResourceURLs, PropsKeys.JAVASCRIPT_EVERYTHING_FILES);
+
+		_jsResourceURLs.clear();
+
+		_addPortalBundles(_jsResourceURLs, PropsKeys.JAVASCRIPT_BAREBONE_FILES);
 
 		synchronized (_topHeadResourcesServiceReferences) {
 			for (ServiceReference<TopHeadResources>
@@ -196,8 +197,8 @@ public class TopHeadDynamicInclude implements DynamicInclude {
 
 						String url = servletContextPath.concat(jsResourcePath);
 
-						_jsResourceURLs.add(url);
 						_allJsResourceURLs.add(url);
+						_jsResourceURLs.add(url);
 					}
 
 					for (String jsResourcePath :
