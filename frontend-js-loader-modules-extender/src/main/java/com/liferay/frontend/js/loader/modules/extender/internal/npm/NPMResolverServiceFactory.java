@@ -49,15 +49,15 @@ public class NPMResolverServiceFactory implements ServiceFactory<NPMResolver> {
 
 	@Override
 	public NPMResolver getService(
-		Bundle bundle, ServiceRegistration<NPMResolver> registration) {
+		Bundle bundle, ServiceRegistration<NPMResolver> serviceRegistration) {
 
 		return new NPMResolverImpl(bundle, _jsonFactory, _npmRegistry);
 	}
 
 	@Override
 	public void ungetService(
-		Bundle bundle, ServiceRegistration<NPMResolver> registration,
-		NPMResolver service) {
+		Bundle bundle, ServiceRegistration<NPMResolver> serviceRegistration,
+		NPMResolver npmResolver) {
 	}
 
 	@Reference(policyOption = ReferencePolicyOption.GREEDY)

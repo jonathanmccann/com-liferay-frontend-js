@@ -19,6 +19,7 @@ import aQute.bnd.osgi.Constants;
 import aQute.lib.converter.Converter;
 
 import com.liferay.frontend.js.loader.modules.extender.internal.npm.NPMRegistryImpl;
+import com.liferay.frontend.js.loader.modules.extender.npm.NPMRegistry;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -447,7 +448,7 @@ public class JSLoaderModulesServletTest extends PowerMockito {
 		jsLoaderModulesServlet.setJSLoaderModulesTracker(
 			jsLoaderModulesTracker);
 
-		NPMRegistryImpl npmRegistry = new NPMRegistryImpl();
+		NPMRegistry npmRegistry = new NPMRegistryImpl();
 
 		jsLoaderModulesServlet.setNPMRegistry(npmRegistry);
 

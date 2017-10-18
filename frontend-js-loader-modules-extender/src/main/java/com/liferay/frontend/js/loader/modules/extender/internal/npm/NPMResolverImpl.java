@@ -39,6 +39,7 @@ public class NPMResolverImpl implements NPMResolver {
 
 		_jsonFactory = jsonFactory;
 		_npmRegistry = npmRegistry;
+
 		_jsPackageIdentifier = _resolveJSPackageIndentifier(bundle);
 	}
 
@@ -66,15 +67,13 @@ public class NPMResolverImpl implements NPMResolver {
 			return null;
 		}
 
-		String packagePath = ModuleNameUtil.getPackagePath(moduleName);
-
 		StringBundler sb = new StringBundler(5);
 
 		sb.append(jsPackage.getName());
 		sb.append(StringPool.AT);
 		sb.append(jsPackage.getVersion());
 		sb.append(StringPool.SLASH);
-		sb.append(packagePath);
+		sb.append(ModuleNameUtil.getPackagePath(moduleName));
 
 		return sb.toString();
 	}
@@ -88,7 +87,6 @@ public class NPMResolverImpl implements NPMResolver {
 			JSONObject jsonObject = _jsonFactory.createJSONObject(content);
 
 			String name = jsonObject.getString("name");
-
 			String version = jsonObject.getString("version");
 
 			return
