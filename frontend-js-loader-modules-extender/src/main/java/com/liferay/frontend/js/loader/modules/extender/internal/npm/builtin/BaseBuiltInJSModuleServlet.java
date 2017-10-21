@@ -60,9 +60,10 @@ public abstract class BaseBuiltInJSModuleServlet extends HttpServlet {
 			return;
 		}
 
-		String pathInfo = request.getPathInfo();
 		String contentType = null;
 		InputStream inputStream = null;
+
+		String pathInfo = request.getPathInfo();
 
 		if (pathInfo.endsWith(".map")) {
 			contentType = ContentTypes.APPLICATION_JSON;
