@@ -51,6 +51,7 @@ public abstract class JSPackageAdapter implements JSPackage {
 		_name = name;
 		_version = version;
 		_mainModuleName = mainModuleName;
+
 		_resolvedId = name + StringPool.AT + version;
 
 		_id = jsBundle.getId() + StringPool.SLASH + _resolvedId;
