@@ -53,7 +53,10 @@ import org.osgi.service.component.annotations.ReferencePolicyOption;
 /**
  * @author Bruno Basto
  */
-@Component(service = SPAUtil.class)
+@Component(
+	configurationPid = "com.liferay.frontend.js.spa.web.configuration.SPAConfiguration",
+	service = SPAUtil.class
+)
 public class SPAUtil {
 
 	public long getCacheExpirationTime(long companyId) {
