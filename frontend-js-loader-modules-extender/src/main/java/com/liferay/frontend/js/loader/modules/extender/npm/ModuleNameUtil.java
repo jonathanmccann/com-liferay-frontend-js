@@ -118,7 +118,7 @@ public class ModuleNameUtil {
 	 * </p>
 	 *
 	 * @param  moduleName the module's name
-	 * @return the package name or null if the moduleName is a reserved one
+	 * @return the package name or null if the module name is a reserved one
 	 * @review
 	 */
 	public static String getPackageName(String moduleName) {
