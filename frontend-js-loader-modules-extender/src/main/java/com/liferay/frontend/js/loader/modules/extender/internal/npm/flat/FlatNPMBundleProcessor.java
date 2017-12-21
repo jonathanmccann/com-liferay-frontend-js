@@ -84,10 +84,9 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 	}
 
 	private String _canonicalizePath(String path) {
+		int parents = 0;
 		String[] parts = path.split(StringPool.SLASH);
 		List<String> processedParts = new ArrayList<>();
-
-		int parents = 0;
 
 		for (int i = parts.length - 1; i >= 0; i--) {
 			String part = parts[i];
@@ -238,15 +237,15 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 	private void _processDependencies(
 		FlatJSPackage flatJSPackage, JSONObject jsonObject, String key) {
 
-		JSONObject dependencies = jsonObject.getJSONObject(key);
+		JSONObject dependenciesJSONObject = jsonObject.getJSONObject(key);
 
-		if (dependencies != null) {
-			Iterator<String> dependencyNames = dependencies.keys();
+		if (dependenciesJSONObject != null) {
+			Iterator<String> dependencyNames = dependenciesJSONObject.keys();
 
 			while (dependencyNames.hasNext()) {
 				String dependencyName = dependencyNames.next();
 
-				String versionConstraints = dependencies.getString(
+				String versionConstraints = dependenciesJSONObject.getString(
 					dependencyName);
 
 				flatJSPackage.addJSPackageDependency(
@@ -259,12 +258,12 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 	private void _processModuleAliases(
 		FlatJSPackage flatJSPackage, String location) {
 
+		Set<String> processedFolderPaths = new HashSet<>();
+
 		FlatJSBundle flatJSBundle = flatJSPackage.getJSBundle();
 
 		Enumeration<URL> urls = flatJSBundle.findEntries(
 			location, "package.json", true);
-
-		Set<String> processedFolders = new HashSet<>();
 
 		while (urls.hasMoreElements()) {
 			URL url = urls.nextElement();
@@ -302,7 +301,7 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 
 				flatJSPackage.addJSModuleAlias(jsModuleAlias);
 
-				processedFolders.add(folderPath);
+				processedFolderPaths.add(folderPath);
 			}
 		}
 
@@ -325,7 +324,7 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 
 				String alias = folderPath.substring(1);
 
-				if (!processedFolders.contains(folderPath)) {
+				if (!processedFolderPaths.contains(folderPath)) {
 					flatJSPackage.addJSModuleAlias(
 						new JSModuleAlias(
 							flatJSPackage, alias + "/index", alias));
@@ -411,9 +410,9 @@ public class FlatNPMBundleProcessor implements JSBundleProcessor {
 
 			String[] parts = location.split(StringPool.SLASH);
 
-			String lastFolder = parts[parts.length - 2];
+			String lastFolderPath = parts[parts.length - 2];
 
-			if (lastFolder.equals("node_modules")) {
+			if (lastFolderPath.equals("node_modules")) {
 				_processPackage(flatJSBundle, location, false);
 			}
 		}
