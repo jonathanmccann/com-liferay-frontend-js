@@ -204,6 +204,6 @@ public class ModuleNameUtil {
 	}
 
 	private static final Set<String> _reservedModuleNames = new HashSet<>(
-		Arrays.asList("require", "exports", "module"));
+		Arrays.asList("exports", "module", "require"));
 
 }
