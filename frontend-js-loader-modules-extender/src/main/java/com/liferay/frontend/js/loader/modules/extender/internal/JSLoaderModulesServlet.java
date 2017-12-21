@@ -219,26 +219,26 @@ public class JSLoaderModulesServlet extends HttpServlet {
 
 				printWriter.write(delimiter2);
 
-				StringBundler alias = new StringBundler(1);
-				StringBundler aliasValue = new StringBundler();
+				StringBundler aliasSB = new StringBundler(1);
+				StringBundler aliasValueSB = new StringBundler();
 
 				if (dependencyPackageName.equals(jsPackage.getName())) {
-					alias.append(dependencyPackageName);
+					aliasSB.append(dependencyPackageName);
 
-					aliasValue.append(jsPackage.getResolvedId());
+					aliasValueSB.append(jsPackage.getResolvedId());
 				}
 				else {
 					JSPackageDependency jsPackageDependency =
 						jsPackage.getJSPackageDependency(dependencyPackageName);
 
 					if (jsPackageDependency == null) {
-						alias.append(dependencyPackageName);
+						aliasSB.append(dependencyPackageName);
 
-						aliasValue.append(
+						aliasValueSB.append(
 							":ERROR:Missing version constraints for ");
-						aliasValue.append(dependencyPackageName);
-						aliasValue.append(" in package.json of ");
-						aliasValue.append(jsPackage.getResolvedId());
+						aliasValueSB.append(dependencyPackageName);
+						aliasValueSB.append(" in package.json of ");
+						aliasValueSB.append(jsPackage.getResolvedId());
 					}
 					else {
 						JSPackage jsDependencyPackage =
@@ -246,27 +246,28 @@ public class JSLoaderModulesServlet extends HttpServlet {
 								jsPackageDependency);
 
 						if (jsDependencyPackage == null) {
-							alias.append(dependencyPackageName);
+							aliasSB.append(dependencyPackageName);
 
-							aliasValue.append(":ERROR:Package ");
-							aliasValue.append(dependencyPackageName);
-							aliasValue.append(" which is a dependency of ");
-							aliasValue.append(jsPackage.getResolvedId());
-							aliasValue.append(" is not deployed in the server");
+							aliasValueSB.append(":ERROR:Package ");
+							aliasValueSB.append(dependencyPackageName);
+							aliasValueSB.append(" which is a dependency of ");
+							aliasValueSB.append(jsPackage.getResolvedId());
+							aliasValueSB.append(
+								" is not deployed in the server");
 						}
 						else {
-							alias.append(jsDependencyPackage.getName());
+							aliasSB.append(jsDependencyPackage.getName());
 
-							aliasValue.append(
+							aliasValueSB.append(
 								jsDependencyPackage.getResolvedId());
 						}
 					}
 				}
 
 				printWriter.write("\"");
-				printWriter.write(alias.toString());
+				printWriter.write(aliasSB.toString());
 				printWriter.write("\": \"");
-				printWriter.write(aliasValue.toString());
+				printWriter.write(aliasValueSB.toString());
 				printWriter.write("\"");
 
 				delimiter2 = ", ";
