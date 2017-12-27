@@ -53,15 +53,15 @@ public abstract class JSPackageAdapter implements JSPackage {
 		_version = version;
 		_mainModuleName = mainModuleName;
 
-		StringBundler id = new StringBundler(5);
+		StringBundler sb = new StringBundler(5);
 
-		id.append(jsBundle.getId());
-		id.append(StringPool.SLASH);
-		id.append(_name);
-		id.append(StringPool.AT);
-		id.append(_version);
+		sb.append(jsBundle.getId());
+		sb.append(StringPool.SLASH);
+		sb.append(_name);
+		sb.append(StringPool.AT);
+		sb.append(_version);
 
-		_id = id.toString();
+		_id = sb.toString();
 	}
 
 	/**
